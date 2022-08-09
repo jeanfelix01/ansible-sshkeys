@@ -1,0 +1,29 @@
+#
+# Ansible playbook to manage SSH keys
+#
+- name: "Playbook to install"
+  hosts: servers
+  remote_user: root 
+  vars:
+    user: admfelix #or another user that you wanna access
+
+# copy any keys added to ./files/
+
+  tasks: 
+  - name: Copy keys added to authorized_keys
+    authorized_key:
+      user: '{{ user }}'
+      state: present
+      key: '{{ item }}'
+    with_file:
+      - 'YOUR_FILE_USERNAME'
+
+# remove any keys added to ./files/
+
+  - name: Copy keys added to authorized_keys
+    authorized_key:
+      user: '{{ user }}'
+      state: present
+      key: '{{ item }}'
+    with_file: #Insert here only if you wanna remove the access.
+      - ' '
